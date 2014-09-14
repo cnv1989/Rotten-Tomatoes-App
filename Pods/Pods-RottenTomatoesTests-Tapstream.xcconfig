@@ -1,0 +1,1 @@
+PODS_ROTTENTOMATOESTESTS_TAPSTREAM_OTHER_LDFLAGS = -framework Foundation -framework UIKit

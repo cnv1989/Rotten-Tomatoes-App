@@ -1,0 +1,2 @@
+PODS_ROTTENTOMATOES_HEAP_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/Heap"
+PODS_ROTTENTOMATOES_HEAP_OTHER_LDFLAGS = -lHeap -licucore -framework CFNetwork -framework Security -framework SystemConfiguration -framework UIKit

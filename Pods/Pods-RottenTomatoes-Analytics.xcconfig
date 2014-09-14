@@ -1,0 +1,2 @@
+PODS_ROTTENTOMATOES_ANALYTICS_GCC_PREPROCESSOR_DEFINITIONS = ANALYTICS_VERSION=1.7.4
+PODS_ROTTENTOMATOES_ANALYTICS_OTHER_LDFLAGS = -framework SystemConfiguration -weak_framework AdSupport -weak_framework CoreBlueTooth -weak_framework SystemConfiguration -weak_framework iAd

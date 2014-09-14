@@ -1,25 +1,213 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="fyb-2j-Qq4">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Movie List View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
-                    </layoutGuides>
+                <viewController id="vXZ-lx-hvc" customClass="MovieListViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="GcE-7W-PMd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" id="ytc-jm-TLJ">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="yes" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                    <scopeButtonTitles>
+                                        <string>Title</string>
+                                        <string>Title</string>
+                                    </scopeButtonTitles>
+                                    <connections>
+                                        <outlet property="delegate" destination="vXZ-lx-hvc" id="1G0-gp-KDd"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.cnv.rottentomatoes.moviecell" rowHeight="100" id="M9p-X1-Zfd" customClass="MovieTableViewCell" customModule="RottenTomatoes" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M9p-X1-Zfd" id="hqh-TU-gvI">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Movie Title" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="b5K-fj-NTL">
+                                                    <rect key="frame" x="94" y="4" width="193" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="IaS-lg-I76">
+                                                    <rect key="frame" x="8" y="4" width="78" height="90.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" adjustsFontSizeToFit="NO" id="nR6-bO-4Do">
+                                                    <rect key="frame" x="94" y="26" width="193" height="73.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="synopsisLabel" destination="nR6-bO-4Do" id="3bz-wT-4Vt"/>
+                                            <outlet property="thumbnail" destination="IaS-lg-I76" id="mNR-xh-xbt"/>
+                                            <outlet property="titleLabel" destination="b5K-fj-NTL" id="az0-fW-9Vq"/>
+                                            <segue destination="xai-dn-crW" kind="push" id="O9M-zH-cX9"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="pWG-U8-v1P"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="TK1-xv-5P8"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="EIa-qF-gKI">
+                                <rect key="frame" x="142" y="265" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.50666610054347827" green="0.50666610054347827" blue="0.50666610054347827" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                            </activityIndicatorView>
+                            <tabBar contentMode="scaleToFill" id="Rd4-HU-lJ2">
+                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem tag="1" title="Box Office" image="box-office-16" id="XLA-pX-kL2"/>
+                                    <tabBarItem tag="2" title="In Theaters" image="now-showing-16" id="sqR-A1-gXj"/>
+                                    <tabBarItem tag="3" title="Opening" image="opening-16" id="wOQ-jL-gJS"/>
+                                    <tabBarItem tag="4" title="Upcoming" image="upcoming-16" id="iVR-tV-0lM"/>
+                                    <tabBarItem tag="5" title="Top Rentels" image="on-dvd" id="Vqs-8U-Iy2"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="uBo-of-SrR"/>
+                                </connections>
+                            </tabBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZTv-Yg-iEW"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="EIa-qF-gKI" id="bQT-Ur-ihf"/>
+                        <outlet property="boxOffice" destination="XLA-pX-kL2" id="VJA-TP-yZX"/>
+                        <outlet property="inTheaters" destination="sqR-A1-gXj" id="9do-E2-f8n"/>
+                        <outlet property="movieListView" destination="GcE-7W-PMd" id="zu1-Cz-G3G"/>
+                        <outlet property="navigationBar" destination="ZTv-Yg-iEW" id="c0E-iu-cBd"/>
+                        <outlet property="onDvd" destination="Vqs-8U-Iy2" id="S6N-YF-ZKa"/>
+                        <outlet property="opening" destination="wOQ-jL-gJS" id="Lg3-FW-Tdd"/>
+                        <outlet property="searchBar" destination="ytc-jm-TLJ" id="Wp3-BK-kWD"/>
+                        <outlet property="tabBar" destination="Rd4-HU-lJ2" id="fzw-00-BYS"/>
+                        <outlet property="upcoming" destination="iVR-tV-0lM" id="BDA-d7-Jft"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="566" y="359"/>
+        </scene>
+        <!--Movie Details View Controller-->
+        <scene sceneID="mY4-fc-51z">
+            <objects>
+                <viewController id="xai-dn-crW" customClass="MovieDetailsViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JbM-aK-I04">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="MbS-sY-2cd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4ZV-SZ-rJZ">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="340"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" id="3HB-yM-5QD">
+                                        <rect key="frame" x="0.0" y="404" width="320" height="404"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" id="VUo-HQ-788">
+                                                <rect key="frame" x="8" y="40" width="304" height="360"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LLL-Da-Exj">
+                                                <rect key="frame" x="8" y="8" width="304" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="XB2-Ip-wtD" appends="YES" id="ybO-si-bsM"/>
+                                    <outletCollection property="gestureRecognizers" destination="XB2-Ip-wtD" appends="YES" id="uNt-Dh-ojJ"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1U1-7d-Jgq"/>
+                    <connections>
+                        <outlet property="moviePoster" destination="4ZV-SZ-rJZ" id="Lhg-N8-pnH"/>
+                        <outlet property="movieTitle" destination="LLL-Da-Exj" id="txB-lm-cQJ"/>
+                        <outlet property="navigationBar" destination="1U1-7d-Jgq" id="UDA-vY-khh"/>
+                        <outlet property="synopsisArea" destination="VUo-HQ-788" id="4h5-uW-hVY"/>
+                        <outlet property="synopsisView" destination="3HB-yM-5QD" id="JdP-jS-qyG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dw3-uS-enV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="XB2-Ip-wtD">
+                    <connections>
+                        <action selector="onTap:" destination="xai-dn-crW" id="N05-ep-iyy"/>
+                        <outlet property="delegate" destination="MbS-sY-2cd" id="jS3-ez-5wr"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1025" y="359"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="81e-tc-0cg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyb-2j-Qq4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qqp-9H-5SW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="0h5-Md-Nji"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uZU-ty-V5G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="162" y="359"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="box-office-16" width="16" height="16"/>
+        <image name="now-showing-16" width="16" height="16"/>
+        <image name="on-dvd" width="16" height="16"/>
+        <image name="opening-16" width="16" height="16"/>
+        <image name="upcoming-16" width="16" height="16"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
