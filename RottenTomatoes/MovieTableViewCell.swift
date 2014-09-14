@@ -13,4 +13,8 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var synopsisLabel: UILabel!
+    @IBOutlet weak var audienceScore: UILabel!
+    @IBOutlet weak var pgRating: UILabel!
+    @IBOutlet weak var runtime: UILabel!
+    @IBOutlet weak var casts: UILabel!
 }

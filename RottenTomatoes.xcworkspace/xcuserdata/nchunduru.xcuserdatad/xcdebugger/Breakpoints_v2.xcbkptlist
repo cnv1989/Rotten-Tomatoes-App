@@ -9,29 +9,45 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RottenTomatoes/MovieListViewController.swift"
-            timestampString = "432343928.439853"
+            filePath = "RottenTomatoes/MovieDetailsViewController.swift"
+            timestampString = "432409953.638872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "hasConnectivity()"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "updateView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RottenTomatoes/MovieListViewController.swift"
-            timestampString = "432343928.439853"
+            filePath = "RottenTomatoes/MovieDetailsViewController.swift"
+            timestampString = "432409756.833317"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "hasConnectivity()"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "updateView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RottenTomatoes/MovieDetailsViewController.swift"
+            timestampString = "432409624.888263"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "updateView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

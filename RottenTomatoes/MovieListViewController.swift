@@ -14,13 +14,14 @@ let INTHEATER = 2
 let OPENING = 3
 let UPCOMING = 4
 let ONDVD = 5
+let SEARCHING = 6
 
 var ImageCache =  [String : UIImage]()
 
 class MovieListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UINavigationBarDelegate, UITabBarDelegate, UIScrollViewDelegate {
     
-    var type: Int = BOXOFFICE
-    
+    var type = BOXOFFICE
+    var prevType  = BOXOFFICE
     
     var refreshControl: UIRefreshControl!
     
@@ -50,7 +51,6 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     var limit: Int = 10
     var pageNumber: Int = 1
     var resultsPerPage: Int = 10
-    var searching = false
     
     var boxOfficeListCount: Int = 10
     var inTheatersListCount: Int = 10
@@ -91,12 +91,67 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
         let cell = movieListView.dequeueReusableCellWithIdentifier("com.cnv.rottentomatoes.moviecell") as MovieTableViewCell;
         cell.titleLabel?.text = movieDict["title"] as NSString
         cell.synopsisLabel?.text = movieDict["synopsis"] as NSString
+        var ratings: NSDictionary = movieDict["ratings"] as NSDictionary
+        
+        var audienceScore = ratings["audience_score"] as Int!
+        if audienceScore != nil {
+            cell.audienceScore?.text = "\(audienceScore)%"
+        } else {
+            cell.audienceScore?.text = "n/a"
+        }
+
+        var mpaa_rating = movieDict["mpaa_rating"] as NSString!
+        if mpaa_rating != nil {
+            cell.pgRating.text = mpaa_rating
+        }
+        
+        
+        var casts = movieDict["abridged_cast"] as NSArray
+        if casts.count > 1 {
+            var cast1 = casts[0] as NSDictionary
+            var cast2 = casts[1] as NSDictionary
+            var name1 = cast1["name"] as NSString
+            var name2 = cast2["name"] as NSString
+            cell.casts.text = "\(name1), \(name2)"
+        } else if casts.count > 0 {
+            var cast = casts[0] as NSDictionary
+            var name = cast["name"] as NSString
+            cell.casts.text = "\(name)"
+        }
+        
+        var runtime: AnyObject = movieDict["runtime"]!
+        var rt = "\(runtime)"
+        
+        if !rt.isEmpty {
+            var time = rt.toInt()
+            var hrs = time! / 60
+            var mins = time! % 60
+            if (hrs > 0) {
+                cell.runtime.text = "\(hrs) hr. \(mins) min."
+            } else {
+                cell.runtime.text = "\(mins) min."
+            }
+        }
+        
         let posters = movieDict["posters"] as NSDictionary
         var urlString: NSString =  posters["thumbnail"] as NSString
         urlString = urlString.stringByReplacingOccurrencesOfString("tmb", withString: "pro")
         
         var image = ImageCache[urlString]
-        
+
+        let imageRequestSuccess = {
+            (request : NSURLRequest!, response : NSHTTPURLResponse!, image : UIImage!) -> Void in
+            ImageCache[urlString] = image
+            cell.thumbnail.image = image;
+            cell.thumbnail.alpha = 0
+            UIView.animateWithDuration(1, animations: {
+                cell.thumbnail.alpha = 1.0
+            })
+        }
+        let imageRequestFailure = {
+            (request : NSURLRequest!, response : NSHTTPURLResponse!, error : NSError!) -> Void in
+            NSLog("imageRequrestFailure")
+        }
         
         if( image == nil ) {
             // If the image does not exist, we need to download it
@@ -104,19 +159,8 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
             
             // Download an NSData representation of the image at the URL
             let request: NSURLRequest = NSURLRequest(URL: imgURL)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
-                if error == nil {
-                    image = UIImage(data: data)
-                    
-                    // Store the image in to our cache
-                    ImageCache[urlString] = image
-                    cell.thumbnail.image = image
-                }
-                else {
-                    println("Error: \(error.localizedDescription)")
-                }
-            })
             
+            cell.thumbnail.setImageWithURLRequest(request, placeholderImage: nil, success: imageRequestSuccess, failure: imageRequestFailure)
         }
         else {
             dispatch_async(dispatch_get_main_queue(), {
@@ -130,7 +174,8 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
     }
     
-    func searchMovies(searchTerm: String = "") -> Void {
+    func searchMovies() -> Void {
+        var searchTerm = self.searchBar.text.lowercaseString
         self.activityIndicator.startAnimating()
         let moviesSearchTerm = searchTerm.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         if let escapedSearchTerm = moviesSearchTerm.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
@@ -154,7 +199,7 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
                 self.activityIndicator.stopAnimating()
                 return
             }
-            let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &errorValue)
+            let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &errorValue)
             if error != nil {
                 println("\(error.description)")
             }
@@ -163,7 +208,7 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
                 let dictionary = parsedResult! as NSDictionary
                 var movies = dictionary["movies"] as? NSArray
                 if movies?.count > 0 {
-                    self.moviesArray = movies?.reverseObjectEnumerator().allObjects
+                    self.moviesArray = movies
                     self.movieListView.reloadData()
                 }
                 self.refreshControl.endRefreshing()
@@ -214,6 +259,8 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
             self.upcomingMovies()
         case ONDVD:
             self.onDvdMovies()
+        case SEARCHING:
+            self.searchMovies()
         default:
             self.boxOfficeMovies()
         }
@@ -231,6 +278,8 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
             self.upcomingListCount += 10
         case ONDVD:
             self.onDvdListCount += 10
+        case SEARCHING:
+            self.resultsPerPage += 10
         default:
             self.boxOfficeListCount += 10
         }
@@ -238,30 +287,31 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     
     
     @IBAction func refresh(sender: AnyObject) {
-        if self.searching == true {
-            self.searchMovies(searchTerm: self.searchBar.text)
-        } else {
-            self.updateCount()
-            self.update()
-        }
+        self.update()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchMovies(searchTerm: searchBar.text)
     }
     
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.prevType = self.type
+        self.type = SEARCHING
+        self.update()
+    }
+    
+    
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        println("start searching")
-        self.searching = true
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.activityIndicator.startAnimating()
+        self.type = self.prevType
+        self.update()
         view.endEditing(true)
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        self.update()
-        self.searching = false
+        view.endEditing(true)
     }
     
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
@@ -279,8 +329,23 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var detailsViewController: MovieDetailsViewController = segue.destinationViewController as MovieDetailsViewController
         var index = self.movieListView.indexPathForSelectedRow()?.row
-        var movieDict = self.moviesArray![index!] as NSDictionary
+        var movieDict = self.moviesArray?[index!] as NSDictionary
         detailsViewController.movieDict = movieDict
+    }
+    
+    func tableView(tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
+        println("disp")
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        var height = scrollView.frame.size.height
+        var contentYoffset =  scrollView.contentOffset.y
+        var distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        if (distanceFromBottom < height) {
+            self.activityIndicator.startAnimating()
+            self.updateCount()
+            self.update()
+        }
     }
     
     /*
