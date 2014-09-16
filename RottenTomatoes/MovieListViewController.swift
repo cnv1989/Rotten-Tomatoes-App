@@ -18,7 +18,9 @@ let SEARCHING = 6
 
 var ImageCache =  [String : UIImage]()
 
+
 class MovieListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UINavigationBarDelegate, UITabBarDelegate, UIScrollViewDelegate {
+    var status = false
     
     var type = BOXOFFICE
     var prevType  = BOXOFFICE
@@ -321,11 +323,25 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     }
 
     func hasConnectivity() -> Bool {
-        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
-        let networkStatus: Int = reachability.currentReachabilityStatus().value
-        return networkStatus != 0
+        var st = false
+        AFNetworkReachabilityManager.sharedManager().setReachabilityStatusChangeBlock{(status: AFNetworkReachabilityStatus?)          in
+            
+            switch status!.hashValue{
+            case AFNetworkReachabilityStatus.NotReachable.hashValue:
+                st = false
+                println("Not reachable")
+            case AFNetworkReachabilityStatus.ReachableViaWiFi.hashValue , AFNetworkReachabilityStatus.ReachableViaWWAN.hashValue :
+                st = true
+                println("Reachable")
+                println(self.description)  // Seems to cause error
+            default:
+                st = false
+                println("Unknown status")
+            }
+        }
+        return st
     }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var detailsViewController: MovieDetailsViewController = segue.destinationViewController as MovieDetailsViewController
         var index = self.movieListView.indexPathForSelectedRow()?.row

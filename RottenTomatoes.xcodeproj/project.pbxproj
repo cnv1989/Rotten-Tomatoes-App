@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1423DD8F19C4E83F000FA64B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423DD8119C4E83F000FA64B /* Reachability.m */; };
 		146DE07019C40D0A0050E208 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14C13EB219C40BE6000A4168 /* SystemConfiguration.framework */; };
 		146DE07719C41B270050E208 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 146DE07619C41B270050E208 /* Foundation.framework */; };
 		14B09DF819C295CB0016A7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B09DF719C295CB0016A7C3 /* AppDelegate.swift */; };
@@ -33,8 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1423DD8019C4E83F000FA64B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../../../Desktop/Reachability/Reachability/Reachability.h; sourceTree = "<group>"; };
-		1423DD8119C4E83F000FA64B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../../../Desktop/Reachability/Reachability/Reachability.m; sourceTree = "<group>"; };
 		146DE07219C415A50050E208 /* RottenTomatoes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RottenTomatoes-Bridging-Header.h"; sourceTree = "<group>"; };
 		146DE07619C41B270050E208 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14B09DF219C295CB0016A7C3 /* RottenTomatoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RottenTomatoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,8 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				146DE07219C415A50050E208 /* RottenTomatoes-Bridging-Header.h */,
-				1423DD8119C4E83F000FA64B /* Reachability.m */,
-				1423DD8019C4E83F000FA64B /* Reachability.h */,
 				14B09E1A19C299920016A7C3 /* AppViews */,
 				14B09E1719C2967D0016A7C3 /* AppControllers */,
 				14B09DF719C295CB0016A7C3 /* AppDelegate.swift */,
@@ -340,7 +335,6 @@
 				14B09E1E19C2A0B10016A7C3 /* MovieDetailsViewController.swift in Sources */,
 				14B09E1919C296A00016A7C3 /* MovieListViewController.swift in Sources */,
 				14B09DF819C295CB0016A7C3 /* AppDelegate.swift in Sources */,
-				1423DD8F19C4E83F000FA64B /* Reachability.m in Sources */,
 				14B09E1C19C299E80016A7C3 /* MovieTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
