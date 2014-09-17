@@ -1,5 +1,6 @@
 # Welcome to the Rotten-Tomatoes-App wiki!
 
+## Time Spent -- 10 ~ 15 hrs. 
 
 ## Requrirements - Satisfied
 
